@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Email Verification page</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+@font-face {
+    font-family: 'nexa_slab_regular_freeregular';
+    src: url('../fonts/nexa_slab_regular-webfont.woff2') format('woff2'),
+         url('../fonts/nexa_slab_regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+    font-family: 'nexa_slab_regular_freeregular';
+    color:#222;
+}
+
+
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="email"],
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #F89F5B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ef7b22;
+}
+
+.otp-input {
+    display: flex;
+}
+
+.otp-input input {
+    width: 20%;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.navbar-brand{
+    font-family: 'nexa_slab_regular_freeregular';
+    font-size: 40px;
+    color:whitesmoke !important;
+}
+
+.navbar{
+    padding: 0.8rem;
+    background-color: #3F1651 !important;
+    box-sizing: border-box;
+}
+
+.navbar-nav li{
+    padding-right: 20px;
+}
+
+.container {
+    max-width: 380px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #d3d2d2;
+    border-radius: 4px; 
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #F89F5B;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px; 
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #eb7922;
+}
+
+.hero {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+}
+
+.men {  
+    margin-left: auto;
+    margin-top:auto;
+    margin-bottom: 140px;
+    max-width: 600px; 
+}
+
+.hero .container {
+    margin-left: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        max-width: 80%;
+    }
+    .men img {
+        max-width: 50%;
+        height: auto;
+    }
+}
+
+</style>
+
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand">Examify</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+<div class="hero">
+    <img src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/media/7ed7d5ca074b48b328150e5a231e8d1f.gif" alt="men" class="men">
+    <div class="container">
+        <h2>Email Verification</h2>
+        <form id="verificationForm" action="/verify_email" method="post">
+            <div class="form-group">
+                <label for="otp">Enter OTP:</label>
+                <div class="otp-input">
+                    <input type="text" id="otp1" name="otp1" maxlength="1" required>
+                    <input type="text" id="otp2" name="otp2" maxlength="1" required>
+                    <input type="text" id="otp3" name="otp3" maxlength="1" required>
+                    <input type="text" id="otp4" name="otp4" maxlength="1" required>
+                </div>
+            </div>
+            <button type="submit">Verify</button>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    <!-- const userEmail = "<%= userEmail %>"; -->
+
+    document.getElementById("verificationForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        const form = event.target;
+        const formData = new FormData(form);
+        const otp = formData.get("otp1") + formData.get("otp2") + formData.get("otp3") + formData.get("otp4");
+    
+        // Send OTP to server for verification
+        fetch('/verify_email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email:"<%= userEmail %>", verificationCode: otp }) // Replace 'user@example.com' with the actual email address
+        })
+        .then(response => {
+            if (response.ok) {
+                // Redirect to login page if verification is successful
+                window.location.href = "/login";
+            } else {
+                // Display error message if verification fails
+                alert("Invalid verification code");
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    });
+    </script>
+    
+
+</body>
+</html>

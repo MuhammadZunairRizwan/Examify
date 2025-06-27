@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Signup Page</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+@font-face {
+    font-family: 'nexa_slab_regular_freeregular';
+    src: url('../fonts/nexa_slab_regular-webfont.woff2') format('woff2'),
+         url('../fonts/nexa_slab_regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+    font-family: 'nexa_slab_regular_freeregular';
+    color:#222;
+}
+
+.navbar-brand{
+    font-family: 'nexa_slab_regular_freeregular';
+    font-size: 40px;
+    color:whitesmoke !important;
+}
+
+.navbar{
+    padding: 0.8rem;
+    background-color: #3F1651 !important;
+    box-sizing: border-box;
+}
+
+.navbar-nav li{
+    padding-right: 20px;
+}
+
+
+
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #d3d2d2;
+    border-radius: 4px; 
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #F89F5B;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px; /* Apply border-radius */
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #eb7922;
+}
+
+.hero {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+}
+
+.men {  
+    margin-left: auto;
+    margin-top:auto;
+    margin-bottom: 140px;
+    max-width: 600px; 
+}
+
+.hero .container {
+    margin-left: 0;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .container {
+        max-width: 80%;
+    }
+    .men img {
+        max-width: 50%;
+        height: auto;
+    }
+}
+</style>
+
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand">Examify</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+<div class="hero">
+    <img src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/media/7ed7d5ca074b48b328150e5a231e8d1f.gif" alt="men" class="men">
+    
+    <div class="container">
+        <form id="signupForm" action="/signup" method="POST" onsubmit="return validateForm()">
+            <input type="text" id="fullname" name="fullname" placeholder="Full Name" required>
+            <input type="text" id="username" name="username" placeholder="User Name" required>
+            <input type="email" id="email" name="email" placeholder="Email Address" required>
+            <input type="password" id="password" name="password" placeholder="Password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+            <input type="date" id="birthdate" name="birthdate" required>
+            <select id="user" name="user" required>
+                <option value="" disabled selected>Select user</option>
+                <option value="admin">Admin</option>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+            </select>
+            <input type="submit" value="Sign Up">
+        </form>
+        <p class="text-center">Already have an account? <a href="login">Log in here</a></p>
+    </div>
+</div>
+
+<script>
+function validateForm() {
+    var fullname = document.getElementById("fullname").value;
+    var username = document.getElementById("username").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var birthdate = document.getElementById("birthdate").value;
+    var user = document.getElementById("user").value;
+
+    var emailRegex = /\S+@\S+\.\S+/;
+    
+    if (fullname === "" || username === "" || email === "" || password === "" || birthdate === "" || user === "") {
+        alert("All fields are required");
+        return false;
+    }
+
+    if (!emailRegex.test(email)) {
+        alert("Invalid email address");
+        return false;
+    }
+
+    return true;
+}
+</script>
+
+
+</body>
+</html>

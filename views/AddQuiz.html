@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Create Quiz</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .navbar {
+            background-color: #3F1651 !important;
+        }
+        .navbar-brand {
+            color: #fff !important;
+        }
+        .navbar-nav .nav-item {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .navbar-nav .nav-link {
+            color: #fff !important;
+            border-radius: 20px;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+            background-color: #6C3C86; /* Background color */
+        }
+        .navbar-nav .nav-link:hover {
+            background-color: #563b76;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .question {
+            display: none; /* Initially hide all questions */
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .question.active {
+            display: block; /* Show active question */
+        }
+        .question input[type="text"] {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .btn-next {
+            margin-top: 20px;
+            width: 100%;
+            background-color: #F89F5B;
+            border-color: #F89F5B;
+        }
+        .btn-next:hover {
+            background-color: #eb7922;
+            border-color: #eb7922;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand">Examify</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-light" href="#">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-light" href="#">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Create a Quiz</h1>
+    <form id="quizMakerForm">
+        <!-- Repeat the question block for each question -->
+        <div class="question active" id="question1">
+            <label for="question1">Question 1:</label>
+            <input type="text" id="question1" name="question1" class="form-control" required>
+            <div class="options">
+                <label for="q1a">Option A:</label>
+                <input type="text" id="q1a" name="q1a" class="form-control" required>
+                <label for="q1b">Option B:</label>
+                <input type="text" id="q1b" name="q1b" class="form-control" required>
+                <label for="q1c">Option C:</label>
+                <input type="text" id="q1c" name="q1c" class="form-control" required>
+                <label for="q1d">Option D:</label>
+                <input type="text" id="q1d" name="q1d" class="form-control" required>
+                <label for="correctOption1">Correct Option:</label>
+                <select id="correctOption1" name="correctOption1" class="form-control" required>
+                    <option value="a">Option A</option>
+                    <option value="b">Option B</option>
+                    <option value="c">Option C</option>
+                    <option value="d">Option D</option>
+                </select>
+            </div>
+        </div>
+        <!-- Repeat the block for questions 2 to 10 -->
+        <!-- Repeat the block for questions 2 to 10 -->
+
+<div class="question active" id="question2">
+    <label for="question2">Question 2:</label>
+    <input type="text" id="question2" name="question2" class="form-control" required>
+    <div class="options">
+        <label for="q2a">Option A:</label>
+        <input type="text" id="q2a" name="q2a" class="form-control" required>
+        <label for="q2b">Option B:</label>
+        <input type="text" id="q2b" name="q2b" class="form-control" required>
+        <label for="q2c">Option C:</label>
+        <input type="text" id="q2c" name="q2c" class="form-control" required>
+        <label for="q2d">Option D:</label>
+        <input type="text" id="q2d" name="q2d" class="form-control" required>
+        <label for="correctOption2">Correct Option:</label>
+        <select id="correctOption2" name="correctOption2" class="form-control" required>
+            <option value="a">Option A</option>
+            <option value="b">Option B</option>
+            <option value="c">Option C</option>
+            <option value="d">Option D</option>
+        </select>
+    </div>
+</div>
+
+<!-- Repeat the block for questions 3 to 10 -->
+<!-- Repeat the block for questions 3 to 10 -->
+
+<div class="question active" id="question3">
+    <label for="question3">Question 3:</label>
+    <input type="text" id="question3" name="question3" class="form-control" required>
+    <div class="options">
+        <label for="q3a">Option A:</label>
+        <input type="text" id="q3a" name="q3a" class="form-control" required>
+        <label for="q3b">Option B:</label>
+        <input type="text" id="q3b" name="q3b" class="form-control" required>
+        <label for="q3c">Option C:</label>
+        <input type="text" id="q3c" name="q3c" class="form-control" required>
+        <label for="q3d">Option D:</label>
+        <input type="text" id="q3d" name="q3d" class="form-control" required>
+        <label for="correctOption3">Correct Option:</label>
+        <select id="correctOption3" name="correctOption3" class="form-control" required>
+            <option value="a">Option A</option>
+            <option value="b">Option B</option>
+            <option value="c">Option C</option>
+            <option value="d">Option D</option>
+        </select>
+    </div>
+</div>
+
+<!-- Repeat the block for questions 4 to 10 -->
+
+<!-- Question 4 -->
+<div class="question active" id="question4">
+    <label for="question4">Question 4:</label>
+    <input type="text" id="question4" name="question4" class="form-control" required>
+    <div class="options">
+        <label for="q4a">Option A:</label>
+        <input type="text" id="q4a" name="q4a" class="form-control" required>
+        <label for="q4b">Option B:</label>
+        <input type="text" id="q4b" name="q4b" class="form-control" required>
+        <label for="q4c">Option C:</label>
+        <input type="text" id="q4c" name="q4c" class="form-control" required>
+        <label for="q4d">Option D:</label>
+        <input type="text" id="q4d" name="q4d" class="form-control" required>
+        <label for="correctOption4">Correct Option:</label>
+        <select id="correctOption4" name="correctOption4" class="form-control" required>
+            <option value="a">Option A</option>
+            <option value="b">Option B</option>
+            <option value="c">Option C</option>
+            <option value="d">Option D</option>
+        </select>
+    </div>
+</div>
+
+<!-- Repeat the block for questions 5 to 10 -->
+
+<!-- Question 5 -->
+<div class="question active" id="question5">
+    <label for="question5">Question 5:</label>
+    <input type="text" id="question5" name="question5" class="form-control" required>
+    <div class="options">
+        <label for="q5a">Option A:</label>
+        <input type="text" id="q5a" name="q5a" class="form-control" required>
+        <label for="q5b">Option B:</label>
+        <input type="text" id="q5b" name="q5b" class="form-control" required>
+        <label for="q5c">Option C:</label>
+        <input type="text" id="q5c" name="q5c" class="form-control" required>
+        <label for="q5d">Option D:</label>
+        <input type="text" id="q5d" name="q5d" class="form-control" required>
+        <label for="correctOption5">Correct Option:</label>
+        <select id="correctOption5" name="correctOption5" class="form-control" required>
+            <option value="a">Option A</option>
+            <option value="b">Option B</option>
+            <option value="c">Option C</option>
+            <option value="d">Option D</option>
+        </select>
+    </div>
+</div>
+
+<!-- Repeat the block for questions 6 to 10 -->
+
+<!-- Question 6 -->
+<div class="question active" id="question6">
+    <label for="question6">Question 6:</label>
+    <input type="text" id="question6" name="question6" class="form-control" required>
+    <div class="options">
+        <label for="q6a">Option A:</label>
+        <input type="text" id="q6a" name="q6a" class="form-control" required>
+        <label for="q6b">Option B:</label>
+        <input type="text" id="q6b" name="q6b" class="form-control" required>
+        <label for="q6c">Option C:</label>
+        <input type="text" id="q6c" name="q6c" class="form-control" required>
+        <label for="q6d">Option D:</label>
+        <input type="text" id="q6d" name="q6d" class="form-control" required>
+        <label for="correctOption6">Correct Option:</label>
+        <select id="correctOption6" name="correctOption6" class="form-control" required>
+            <option value="a">Option A</option>
+            <option value="b">Option B</option>
+            <option value="c">Option C</option>
+            <option value="d">Option D</option>
+        </select>
+    </div>
+</div>
+
+<!-- Repeat the block for questions 7 to 10 -->
+
+<!-- Question 7 -->
+<div class="question active" id="question7">
+    <label for="question7">Question 7:</label>
+    <input type="text" id="question7" name="question7" class="form-control" required>
+    <div class="options">
+        <label for="q7a">Option A:</label>
+        <input type="text" id="q7a" name="q7a" class="form-control" required>
+        <label for="q7b">Option B:</label>
+        <input type="text" id="q7b" name="q7b" class="form-control" required>
+        <label for="q7c">Option C:</label>
+        <input type="text" id="q7c" name="q7c" class="form-control" required>
+        <label for="q7d">Option D:</label>
+        <input type="text" id="q7d" name="q7d" class="form-control" required>
+        <label for="correctOption7">Correct Option:</label>
+        <select id="correctOption7" name="correctOption7" class="form-control" required>
+            <option value="a">Option A</option>
+            <option value="b">Option B</option>
+            <option value="c">Option C</option>
+            <option value="d">Option D</option>
+        </select>
+    </div>
+</div>
+
+<!-- Repeat the block for questions 8 to 10 -->
+
+<!-- Question 8 -->
+<div class="question active" id="question8">
+    <label for="question8">Question 8:</label>
+    <input type="text" id="question8" name="question8" class="form-control" required>
+    <div class="options">
+        <label for="q8a">Option A:</label>
+        <input type="text" id="q8a" name="q8a" class="form-control" required>
+        <label for="q8b">Option B:</label>
+        <input type="text" id="q8b" name="q8b" class="form-control" required>
+        <label for="q8c">Option C:</label>
+        <input type="text" id="q8c" name="q8c" class="form-control" required>
+        <label for="q8d">Option D:</label>
+        <input type="text" id="q8d" name="q8d" class="form-control" required>
+        <label for="correctOption8">Correct Option:</label>
+        <select id="correctOption8" name="correctOption8" class="form-control" required>
+            <option value="a">Option A</option>
+            <option value="b">Option B</option>
+            <option value="c">Option C</option>
+            <option value="d">Option D</option>
+        </select>
+    </div>
+</div>
+
+<!-- Repeat the block for questions 9 and 10 -->
+
+<!-- Question 9 -->
+<div class="question active" id="question9">
+    <label for="question9">Question 9:</label>
+    <input type="text" id="question9" name="question9" class="form-control" required>
+    <div class="options">
+        <label for="q9a">Option A:</label>
+        <input type="text" id="q9a" name="q9a" class="form-control" required>
+        <label for="q9b">Option B:</label>
+        <input type="text" id="q9b" name="q9b" class="form-control" required>
+        <label for="q9c">Option C:</label>
+        <input type="text" id="q9c" name="q9c" class="form-control" required>
+        <label for="q9d">Option D:</label>
+        <input type="text" id="q9d" name="q9d" class="form-control" required>
+        <label for="correctOption9">Correct Option:</label>
+        <select id="correctOption9" name="correctOption9" class="form-control" required>
+            <option value="a">Option A</option>
+            <option value="b">Option B</option>
+            <option value="c">Option C</option>
+            <option value="d">Option D</option>
+        </select>
+    </div>
+</div>
+
+<!-- Question 10 -->
+<div class="question active" id="question10">
+    <label for="question10">Question 10:</label>
+    <input type="text" id="question10" name="question10" class="form-control" required>
+    <div class="options">
+        <label for="q10a">Option A:</label>
+        <input type="text" id="q10a" name="q10a" class="form-control" required>
+        <label for="q10b">Option B:</label>
+        <input type="text" id="q10b" name="q10b" class="form-control" required>
+        <label for="q10c">Option C:</label>
+        <input type="text" id="q10c" name="q10c" class="form-control" required>
+        <label for="q10d">Option D:</label>
+        <input type="text" id="q10d" name="q10d" class="form-control" required>
+        <label for="correctOption10">Correct Option:</label>
+        <select id="correctOption10" name="correctOption10" class="form-control" required>
+            <option value="a">Option A</option>
+            <option value="b">Option B</option>
+            <option value="c">Option C</option>
+            <option value="d">Option D</option>
+        </select>
+    </div>
+</div>
+
+        <button type="submit" class="btn btn-primary btn-next" onclick="submit()">Submit</button>
+    </form>
+</div>
+
+<script>
+var currentQuestion = 1;
+var totalQuestions = 10;
+
+function submit() {
+
+}
+</script>
+
+</body>
+</html>

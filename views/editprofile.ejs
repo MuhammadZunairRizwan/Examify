@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Student Panel</h1>
+
+    <button class="btn btn-primary" onclick="updateStudent('<%= username %>')">Update Student</button>
+    <select id="sort" onchange="handleSort(this)">
+        <option id="sort1" value="fullname" >Full Name (A-Z)</option>
+        <option id="sort2" value="fullname">Full Name (Z-A)</option>
+  
+      </select>
+      
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Birthdate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="studentsTable">
+            <!-- Data will be inserted here dynamically -->
+        </tbody>
+    </table>
+
+    <!-- Your JavaScript code here -->
+    <script>
+        // Function to fetch student data from server and populate the table
+        async function fetchStudents() {
+            try 
+            {
+                    const response = await fetch(`/students?sort=${document.getElementById('sort').value}`);
+                    const students = await response.json();
+                    const tableBody = document.getElementById('studentsTable');
+                    // Rest of the code remains the same...
+            } catch (error) {
+                    console.error(error);
+                    alert('Failed to fetch students');
+                }
+            
+                try {
+    const response = await fetch('/students');
+    const students = await response.json();
+    const tableBody = document.getElementById('studentsTable');
+
+    // Clear previous data
+    tableBody.innerHTML = '';
+
+    // Populate table with fetched data
+    students.forEach(student => {
+        // Check if the student's username matches the desired username
+        if (student.username === "<%= username %>") {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${student.fullname}</td>
+                <td>${student.username}</td>
+                <td>${student.email}</td>
+                <td>${student.password}</td>
+                <td>${new Date(student.birthdate).toLocaleDateString()}</td>
+             
+            `;
+            tableBody.appendChild(row);
+        }
+    });
+} catch (error) {
+    console.error(error);
+    alert('Failed to fetch students');
+}
+        }
+
+        // Function to create a new student
+        async function createStudent() {
+            const fullname = prompt('Enter full name:');
+            const username = prompt('Enter username:');
+            const email = prompt('Enter email:');
+            const password = prompt('Enter password:');
+            const birthdate = prompt('Enter birthdate (YYYY-MM-DD):');
+
+            try {
+                const response = await fetch('/students', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        fullname,
+                        username,
+                        email,
+                        password,
+                        birthdate
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Student created successfully');
+                    fetchStudents(); // Refresh the table
+                } else {
+                    alert('Failed to create student');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Failed to create student');
+            }
+        }
+
+ // Function to update a student
+// Function to update a student
+async function updateStudent(username) {
+    try {
+        const currentStudent = await fetchStudentByUsername(username); // Fetch current student data
+
+        // Prompt user for each field
+        const newFullname = prompt('Enter new full name (leave empty to keep old):');
+        const newUsername = prompt('Enter new username (leave empty to keep old):');
+        const newEmail = prompt('Enter new email (leave empty to keep old):');
+        const newPassword = prompt('Enter new password (leave empty to keep old):');
+        const newBirthdate = prompt('Enter new birthdate (YYYY-MM-DD, leave empty to keep old):');
+
+        // Construct the updated student object
+        const updatedStudent = {
+            fullname: newFullname || currentStudent.fullname, // If prompt is empty or canceled, use current value
+            username: newUsername || currentStudent.username,
+            email: newEmail || currentStudent.email,
+            password: newPassword || currentStudent.password,
+            birthdate: newBirthdate ? new Date(newBirthdate) : currentStudent.birthdate, // Parse new date or use current value
+        };
+
+        const response = await fetch(`/students/${username}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedStudent)
+        });
+
+        if (response.ok) {
+            alert('Student updated successfully');
+            fetchStudents(); // Refresh the table
+        } else {
+            alert('Failed to update student');
+        }
+    } catch (error) {
+        console.error(error);
+        alert('Failed to update student');
+    }
+}
+async function fetchStudentByUsername(username) {
+    try {
+        const response = await fetch(`/students/${username}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch student');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        alert('Failed to fetch student');
+    }
+}
+
+ // Function to delete a student
+ async function deleteStudent(username) {
+            const confirmDelete = confirm(`Are you sure you want to delete student with username ${username}?`);
+
+            if (confirmDelete) {
+                try {
+                    const response = await fetch(`/students/${username}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        alert('Student deleted successfully');
+                        fetchStudents(); // Refresh the table
+                    } else {
+                        alert('Failed to delete student');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert('Failed to delete student');
+                }
+            }
+        }
+
+        function handleSort(selectElement) {
+            sortTable();
+  const selectedOptionId = selectElement.options[selectElement.selectedIndex].id;
+  if (selectedOptionId === 'sort1') {
+    sortTable();
+  } else if (selectedOptionId === 'sort2') {
+    sortTable1();
+  }
+}
+
+        function sortTable() {
+            const table = document.querySelector('table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const sortField = document.getElementById('sort').value;
+            
+            rows.sort((a, b) => {
+                const aValue = a.querySelector(`td:nth-child(${['fullname'].indexOf(sortField) + 1})`).innerText.toLowerCase();
+                const bValue = b.querySelector(`td:nth-child(${['fullname'].indexOf(sortField) + 1})`).innerText.toLowerCase();
+                return aValue.localeCompare(bValue);
+            });
+
+            tbody.innerHTML = '';
+            rows.forEach(row => tbody.appendChild(row));
+            }
+
+            function sortTable1() {
+  const table = document.querySelector('table');
+  const tbody = table.querySelector('tbody');
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+  const sortField = document.getElementById('sort').value;
+  
+  rows.sort((a, b) => {
+    const aValue = a.querySelector(`td:nth-child(${['fullname'].indexOf(sortField) + 1})`).innerText.toLowerCase();
+    const bValue = b.querySelector(`td:nth-child(${['fullname'].indexOf(sortField) + 1})`).innerText.toLowerCase();
+    // Reverse the comparison for descending order
+    return bValue.localeCompare(aValue);
+  });
+
+  tbody.innerHTML = '';
+  rows.forEach(row => tbody.appendChild(row));
+}
+    
+
+        // Load data when the page is loaded
+        window.onload = fetchStudents;
+
+    </script>
+</body>
+</html>

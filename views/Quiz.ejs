@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Quiz</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        /* Your CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .btn-next {
+            margin-top: 20px;
+            width: 100%;
+            background-color: #F89F5B;
+            border-color: #F89F5B;
+        }
+        .btn-next:hover {
+            background-color: #eb7922;
+            border-color: #eb7922;
+        }
+        .navbar {
+            background-color: #3F1651 !important;
+        }
+        .navbar-brand {
+            color: #fff !important;
+        }
+        .navbar-nav .nav-item {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .navbar-nav .nav-link {
+            color: #fff !important;
+            border-radius: 20px;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+            background-color: #6C3C86; /* Background color */
+        }
+        .navbar-nav .nav-link:hover {
+            background-color: #563b76;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .btn-submit {
+            margin-top: 20px;
+            width: 100%;
+            background-color: #F89F5B;
+            border-color: #F89F5B;
+        }
+        .btn-submit:hover {
+            background-color: #eb7922;
+            border-color: #eb7922;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            color: #3F1651;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px 0;
+            background-color: #3F1651;
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div id="div1"></div>
+        <div id="div2"></div>
+        <div id="div3"></div>
+    </div>
+
+    <div class="container">
+        <!-- <h1>Quiz</h1> -->
+        <div id="quiz-container"></div>
+        <button type="submit" class="btn btn-primary btn-next" onclick="submitQuiz()">Submit</button>
+        <div id="result" class="result"></div>
+    </div>
+<br><br><br>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+       
+          <li id="TeacherLink1" class="page-item"><a class="page-link" href="#">1</a></li>
+          <li id="TeacherLink2" class="page-item"><a class="page-link" href="#">2</a></li>
+          <li id="TeacherLink3" class="page-item"><a class="page-link" href="#">3</a></li>
+         
+        </ul>
+      </nav>
+
+      
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+    <script>
+        let correctAnswers = 0;
+
+        async function fetchQuizQuestions() {
+            try {
+                const response = await fetch('/quizzes');
+                const quizQuestions = await response.json();
+
+                const div1 = document.getElementById('div1');
+                const div2 = document.getElementById('div2');
+                const div3 = document.getElementById('div3');
+
+                let count = 0;
+                quizQuestions.forEach((question, index) => {
+                    const questionDiv = document.createElement('div');
+                    questionDiv.classList.add('quiz-question');
+                    const questionText = document.createElement('p');
+                    questionText.classList.add('question-text');
+                    questionText.textContent = question.questionText;
+                    questionDiv.appendChild(questionText);
+
+                    const optionsList = document.createElement('ul');
+                    optionsList.classList.add('options');
+                    ['A', 'B', 'C', 'D'].forEach(optionKey => {
+                        const optionItem = document.createElement('li');
+                        const optionLabel = document.createElement('label');
+                        optionLabel.textContent = `${optionKey}: ${question['option' + optionKey]}`;
+
+                        const optionRadio = document.createElement('input');
+                        optionRadio.setAttribute('type', 'radio');
+                        optionRadio.setAttribute('name', question._id); // Use question ID as the radio button group name
+                        optionRadio.setAttribute('value', optionKey);
+                        optionLabel.prepend(optionRadio);
+                        optionItem.appendChild(optionLabel);
+
+                        optionsList.appendChild(optionItem);
+                    });
+                    questionDiv.appendChild(optionsList);
+
+                    if (count < 3) {
+                        div1.appendChild(questionDiv);
+                    } else if (count >= 3 && count < 6) {
+                        div2.appendChild(questionDiv);
+                    } else {
+                        div3.appendChild(questionDiv);
+                    }
+
+                    count++;
+                });
+            } catch (error) {
+                console.error('Error fetching quiz questions:', error);
+                alert('Error fetching quiz questions');
+            }
+        }
+
+        async function submitQuiz() {
+            const quizQuestions = document.querySelectorAll('.quiz-question');
+            correctAnswers = 0;
+
+            for (let i = 0; i < 10; i++) {
+                const questionDiv = quizQuestions[i];
+                const selectedOption = questionDiv.querySelector('input[type="radio"]:checked');
+                if (selectedOption) {
+                    const questionId = selectedOption.getAttribute('name');
+                    const correctOption = await checkAnswer(questionId);
+                    selectedOption.value='option'+selectedOption.value;
+                    if (correctOption === selectedOption.value) {
+                        correctAnswers++;
+                    }
+                }
+            }
+
+            updateStudent1('<%= username %>',correctAnswers);
+
+            alert(`You answered ${correctAnswers} questions correctly out of ${quizQuestions.length}.`);
+        }
+        async function checkAnswer(questionId) {
+            try {
+                const response = await fetch(`/quizzes/${questionId}`);
+                const questionData = await response.json();
+                console.log(`Question Data for ID ${questionId}:`, questionData);
+                return questionData.correctOption;
+            } catch (error) {
+                console.error('Error checking answer:', error);
+                return ''; // Return an empty string if an error occurs
+            }
+        }
+
+        async function updateStudent1(username, marak) {
+    try {
+        const currentStudent = await fetchStudentByUsername(username);
+
+        if (!currentStudent) {
+            throw new Error('Student not found');
+        }
+
+        const newMarks = marak; // Check if marak holds the correct value
+       
+        const updatedStudent = {
+            ...currentStudent, // Maintain other fields
+            marks: newMarks !== '' ? parseInt(newMarks) : currentStudent.marks,
+        };
+
+        const response = await fetch(`/students/${username}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedStudent)
+        });
+
+        if (response.ok) {
+           // alert('Student updated successfully');
+        } else {
+            throw new Error('Failed to update student');
+        }
+    } catch (error) {
+        console.error(error);
+        alert('Failed to update student');
+    }
+}
+
+async function fetchStudentByUsername(username) {
+    try {
+        const response = await fetch(`/students/${username}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch student');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        alert('Failed to fetch student');
+    }
+}
+
+
+        window.onload = fetchQuizQuestions;
+    </script>
+
+    
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get the student link
+        var TeacherLink1 = document.getElementById('TeacherLink1');
+        var TeacherLink2 = document.getElementById('TeacherLink2');
+        var TeacherLink3 = document.getElementById('TeacherLink3');
+  
+  
+  
+        // Get the mainContent div
+        var mainContent = document.getElementById('div1');
+        
+        // Get the CRUD container
+        var crudContainer = document.getElementById('div2');
+        var crudteacher = document.getElementById('div3');
+  
+        if (crudContainer) {
+            crudContainer.style.display = 'none';
+          }
+  
+          
+        if (crudteacher) {
+          crudteacher.style.display = 'none';
+          }
+  
+          TeacherLink1.addEventListener('click', function () {
+          // Hide the mainContent div
+          if (mainContent) {
+            mainContent.style.display = 'block';
+          }
+          if (crudteacher) {
+          crudteacher.style.display = 'none';
+          }
+          // Show the CRUD container
+          if (crudContainer) {
+            crudContainer.style.display = 'none';
+          }
+        });  
+        // Add click event listener to the student link
+        TeacherLink2.addEventListener('click', function () {
+          // Hide the mainContent div
+          if (crudContainer) {
+            crudContainer.style.display = 'block';
+          }
+  
+          if (mainContent) {
+            mainContent.style.display = 'none';
+          }
+          if (crudteacher) {
+          crudteacher.style.display = 'none';
+          }
+          // Show the CRUD container
+          
+        });
+  
+  
+        TeacherLink3.addEventListener('click', function () {
+          // Hide the mainContent div
+          if (mainContent) {
+            mainContent.style.display = 'none';
+          }
+          if (crudteacher) {
+          crudteacher.style.display = 'block';
+          }
+          // Show the CRUD container
+          if (crudContainer) {
+            crudContainer.style.display = 'none';
+          }
+        });
+      });
+      
+ 
+
+
+    </script>
+      
+</body>
+</html>

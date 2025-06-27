@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Create Quiz</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container1 {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        label {
+            margin-bottom: 5px;
+            display: block;
+        }
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container1" style="height: 50%; width:50%">
+    <h1>Create a Quiz</h1>
+    <form id="addQuizForm" action="/addtest" method="POST">
+        <!-- Question 1 -->
+        <div class="question">
+            <label for="questionText1">Question 1:</label>
+            <input type="text" id="questionText1" name="questionText[]" required>
+            <label for="optionA1">Option A:</label>
+            <input type="text" id="optionA1" name="optionA[]" required>
+            <label for="optionB1">Option B:</label>
+            <input type="text" id="optionB1" name="optionB[]" required>
+            <label for="optionC1">Option C:</label>
+            <input type="text" id="optionC1" name="optionC[]" required>
+            <label for="optionD1">Option D:</label>
+            <input type="text" id="optionD1" name="optionD[]" required>
+            <label for="correctOption1">Correct Option:</label>
+            <select id="correctOption1" name="correctOption[]" required>
+                <option value="optionA">Option A</option>
+                <option value="optionB">Option B</option>
+                <option value="optionC">Option C</option>
+                <option value="optionD">Option D</option>
+            </select>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+            <label for="questionText2">Question 2:</label>
+            <input type="text" id="questionText2" name="questionText[]" required>
+            <label for="optionA2">Option A:</label>
+            <input type="text" id="optionA2" name="optionA[]" required>
+            <label for="optionB2">Option B:</label>
+            <input type="text" id="optionB2" name="optionB[]" required>
+            <label for="optionC2">Option C:</label>
+            <input type="text" id="optionC2" name="optionC[]" required>
+            <label for="optionD2">Option D:</label>
+            <input type="text" id="optionD2" name="optionD[]" required>
+            <label for="correctOption2">Correct Option:</label>
+            <select id="correctOption2" name="correctOption[]" required>
+                <option value="optionA">Option A</option>
+                <option value="optionB">Option B</option>
+                <option value="optionC">Option C</option>
+                <option value="optionD">Option D</option>
+            </select>
+        </div>
+
+        <!-- Repeat the above block for Question 3 to 10 -->
+
+        <!-- Question 3 -->
+        <div class="question">
+            <label for="questionText3">Question 3:</label>
+            <input type="text" id="questionText3" name="questionText[]" required>
+            <label for="optionA3">Option A:</label>
+            <input type="text" id="optionA3" name="optionA[]" required>
+            <label for="optionB3">Option B:</label>
+            <input type="text" id="optionB3" name="optionB[]" required>
+            <label for="optionC3">Option C:</label>
+            <input type="text" id="optionC3" name="optionC[]" required>
+            <label for="optionD3">Option D:</label>
+            <input type="text" id="optionD3" name="optionD[]" required>
+            <label for="correctOption3">Correct Option:</label>
+            <select id="correctOption3" name="correctOption[]" required>
+                <option value="optionA">Option A</option>
+                <option value="optionB">Option B</option>
+                <option value="optionC">Option C</option>
+                <option value="optionD">Option D</option>
+            </select>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question">
+            <label for="questionText4">Question 4:</label>
+            <input type="text" id="questionText4" name="questionText[]" required>
+            <label for="optionA4">Option A:</label>
+            <input type="text" id="optionA4" name="optionA[]" required>
+            <label for="optionB4">Option B:</label>
+            <input type="text" id="optionB4" name="optionB[]" required>
+            <label for="optionC4">Option C:</label>
+            <input type="text" id="optionC4" name="optionC[]" required>
+            <label for="optionD4">Option D:</label>
+            <input type="text" id="optionD4" name="optionD[]" required>
+            <label for="correctOption4">Correct Option:</label>
+            <select id="correctOption4" name="correctOption[]" required>
+                <option value="optionA">Option A</option>
+                <option value="optionB">Option B</option>
+                <option value="optionC">Option C</option>
+                <option value="optionD">Option D</option>
+            </select>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question">
+            <label for="questionText5">Question 5:</label>
+            <input type="text" id="questionText5" name="questionText[]" required>
+            <label for="optionA5">Option A:</label>
+            <input type="text" id="optionA5" name="optionA[]" required>
+            <label for="optionB5">Option B:</label>
+            <input type="text" id="optionB5" name="optionB[]" required>
+            <label for="optionC5">Option C:</label>
+            <input type="text" id="optionC5" name="optionC[]" required>
+            <label for="optionD5">Option D:</label>
+            <input type="text" id="optionD5" name="optionD[]" required>
+            <label for="correctOption5">Correct Option:</label>
+            <select id="correctOption5" name="correctOption[]" required>
+                <option value="optionA">Option A</option>
+                <option value="optionB">Option B</option>
+                <option value="optionC">Option C</option>
+                <option value="optionD">Option D</option>
+            </select>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question">
+            <label for="questionText6">Question 6:</label>
+            <input type="text" id="questionText6" name="questionText[]" required>
+            <label for="optionA6">Option A:</label>
+            <input type="text" id="optionA6" name="optionA[]" required>
+            <label for="optionB6">Option B:</label>
+            <input type="text" id="optionB6" name="optionB[]" required>
+            <label for="optionC6">Option C:</label>
+            <input type="text" id="optionC6" name="optionC[]" required>
+            <label for="optionD6">Option D:</label>
+            <input type="text" id="optionD6" name="optionD[]" required>
+            <label for="correctOption6">Correct Option:</label>
+            <select id="correctOption6" name="correctOption[]" required>
+                <option value="optionA">Option A</option>
+                <option value="optionB">Option B</option>
+                <option value="optionC">Option C</option>
+                <option value="optionD">Option D</option>
+            </select>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question">
+            <label for="questionText7">Question 7:</label>
+            <input type="text" id="questionText7" name="questionText[]" required>
+            <label for="optionA7">Option A:</label>
+            <input type="text" id="optionA7" name="optionA[]" required>
+            <label for="optionB7">Option B:</label>
+            <input type="text" id="optionB7" name="optionB[]" required>
+            <label for="optionC7">Option C:</label>
+            <input type="text" id="optionC7" name="optionC[]" required>
+            <label for="optionD7">Option D:</label>
+            <input type="text" id="optionD7" name="optionD[]" required>
+            <label for="correctOption7">Correct Option:</label>
+            <select id="correctOption7" name="correctOption[]" required>
+                <option value="optionA">Option A</option>
+                <option value="optionB">Option B</option>
+                <option value="optionC">Option C</option>
+                <option value="optionD">Option D</option>
+            </select>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question">
+            <label for="questionText8">Question 8:</label>
+            <input type="text" id="questionText8" name="questionText[]" required>
+            <label for="optionA8">Option A:</label>
+            <input type="text" id="optionA8" name="optionA[]" required>
+            <label for="optionB8">Option B:</label>
+            <input type="text" id="optionB8" name="optionB[]" required>
+            <label for="optionC8">Option C:</label>
+            <input type="text" id="optionC8" name="optionC[]" required>
+            <label for="optionD8">Option D:</label>
+            <input type="text" id="optionD8" name="optionD[]" required>
+            <label for="correctOption8">Correct Option:</label>
+            <select id="correctOption8" name="correctOption[]" required>
+                <option value="optionA">Option A</option>
+                <option value="optionB">Option B</option>
+                <option value="optionC">Option C</option>
+                <option value="optionD">Option D</option>
+            </select>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question">
+            <label for="questionText9">Question 9:</label>
+            <input type="text" id="questionText9" name="questionText[]" required>
+            <label for="optionA9">Option A:</label>
+            <input type="text" id="optionA9" name="optionA[]" required>
+            <label for="optionB9">Option B:</label>
+            <input type="text" id="optionB9" name="optionB[]" required>
+            <label for="optionC9">Option C:</label>
+            <input type="text" id="optionC9" name="optionC[]" required>
+            <label for="optionD9">Option D:</label>
+            <input type="text" id="optionD9" name="optionD[]" required>
+            <label for="correctOption9">Correct Option:</label>
+            <select id="correctOption9" name="correctOption[]" required>
+                <option value="optionA">Option A</option>
+                <option value="optionB">Option B</option>
+                <option value="optionC">Option C</option>
+                <option value="optionD">Option D</option>
+            </select>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question">
+            <label for="questionText10">Question 10:</label>
+            <input type="text" id="questionText10" name="questionText[]" required>
+            <label for="optionA10">Option A:</label>
+            <input type="text" id="optionA10" name="optionA[]" required>
+            <label for="optionB10">Option B:</label>
+            <input type="text" id="optionB10" name="optionB[]" required>
+            <label for="optionC10">Option C:</label>
+            <input type="text" id="optionC10" name="optionC[]" required>
+            <label for="optionD10">Option D:</label>
+            <input type="text" id="optionD10" name="optionD[]" required>
+            <label for="correctOption10">Correct Option:</label>
+            <select id="correctOption10" name="correctOption[]" required>
+                <option value="optionA">Option A</option>
+                <option value="optionB">Option B</option>
+                <option value="optionC">Option C</option>
+                <option value="optionD">Option D</option>
+            </select>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>

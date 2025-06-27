@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Gill Sans", sans-serif;;
+    }
+
+    header {
+      position: fixed;
+      background: #22242A;
+      padding: 20px;
+      width: 100%;
+      z-index: 1;
+    }
+
+    .left_area h3 {
+      color: #fff;
+      margin: 0px;
+      text-transform: uppercase;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .left_area span {
+      color: #19B3D3;
+    }
+
+    .logout_btn {
+      padding: 5px;
+      background: #19B3D3;
+      text-decoration: none;
+      float: right;
+      margin-top: -30px;
+      margin-right: 40px;
+      border-radius: 2px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      transition: 0.5s;
+
+    }
+
+    .logout_btn:hover {
+      background: #0B87A6;
+    }
+
+    .sidebar {
+      background: #2f323a;
+      margin-top: 70px;
+      padding-top: 30px;
+      position: fixed;
+      left: 0;
+      width: 250px;
+      height: 100%;
+      transition: 0.5s;
+      transition-property: left;
+    }
+
+    .sidebar .profile_image {
+      width: 100px;
+      height: 100px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+
+    .sidebar h4 {
+      color: #ccc;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      color: #fff;
+      display: block;
+      width: 100%;
+      line-height: 60px;
+      text-decoration: none;
+      padding-left: 40px;
+      box-sizing: border-box;
+      transition: 0.5s;
+
+    }
+
+    .sidebar a:hover {
+      background: #19B3D3;
+    }
+
+    .sidebar i {
+      padding-right: 10px;
+    }
+
+    label #sidebar_btn {
+      z-index: 1;
+      color: #fff;
+      position: fixed;
+      cursor: pointer;
+      left: 300px;
+      font-size: 20px;
+      margin: 5px 0;
+      transition: 0.5s;
+      transition-property: color;
+    }
+
+    label #sidebar_btn:hover {
+      color: #19B3D3;
+    }
+
+    #check:checked~.sidebar {
+      left: -190px;
+    }
+
+    #check:checked~.sidebar a span {
+      display: none;
+    }
+
+    #check:checked~.sidebar a {
+      font-size: 20px;
+      margin-left: 170px;
+      width: 80px;
+    }
+
+    .content {
+      margin-left: 250px;
+      background: url(background.png) no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: 100vh;
+      transition: 0.5s;
+    }
+
+    #check:checked~.content {
+      margin-left: 60px;
+    }
+
+    #check {
+      display: none;
+    }
+
+        /*---------------------------------------
+   Social section
+-----------------------------------------*/
+footer {
+    padding: 0px 0px 0px 0px;
+    background-color: #212529;
+    margin: 0px;
+  }
+
+  .fa {
+    padding: 20px;
+    font-size: 23px;
+    width: 60px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    border-radius: 50%;
+  }
+
+  .fa:hover {
+    opacity: 0.5;
+    text-decoration: none;
+  }
+  a:link {
+    text-decoration: none;
+  }
+
+  .order-card {
+    color: rgb(255, 255, 255);
+  }
+
+  .bg-c-blue {
+    background: #04868f;
+  }
+
+  .bg-c-green {
+    background:#4C51BF;
+  }
+
+  .bg-c-yellow {
+    background: #F56565;
+  }
+
+  .bg-c-pink {
+    background: #663a30;
+  }
+
+
+  .card {
+    
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+    border: 1px solid black;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .card .card-block {
+    padding: 25px;
+  }
+
+  .order-card i {
+    font-size: 26px;
+  }
+
+  .f-left {
+    float: left;
+  }
+
+  .f-right {
+    float: right;
+  }
+  header {
+  left: 0px;
+  right: 0px;
+}
+
+  </style>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+</head>
+
+<body>
+
+  <input type="checkbox" id="check">
+  <!--header area start-->
+  <header>
+    <label for="check">
+      <i style="left: 200px;margin-top: 17px;"class="fas fa-bars" id="sidebar_btn"></i>
+    </label>
+    <div class="left_area">
+      <h3>Examify</h3>
+    </div>
+    <div class="right_area">
+      <a href="/" class="logout_btn">Logout</a>
+    </div>
+  </header>
+  <!--header area end-->
+  <!--sidebar start-->
+  <div class="sidebar">
+    <center>
+
+      <img src="images/admin.png" class="profile_image" alt="">
+      <h4>Admin</h4>
+
+    </center>
+
+    <a id="admindashboard" href="#"><i class="fas fa-user-graduate"></i><span>Dashboard</span></a>
+    <a id="TeacherLink" href="#"><i class="fas fa-user-graduate"></i><span>Teacher</span></a>
+    <a id="studentLink" href="#"><i class="fas fa-user-graduate"></i><span>Student</span></a>
+    
+
+
+  </div>
+
+  <!--sidebar end-->
+  <br><br>
+
+  <div class="container" id="mainContent">
+    <div class="container custom-card-container"style="margin-left: 270px;>
+      <div class="row justify-content-end">
+        <div class="col-md-8 col-xl-10">
+          <div class="row" style="display:flex; margin-top:175px" >
+            <div class="col-md-6 custom-card" style="margin-right:35px;">
+                <div class="card bg-c-blue order-card">
+                    <div class="card-block">
+                      <h6 class="m-b-20"> <a href="admin-view-student" style="text-decoration: none;color:white;">Total Students</a> </h6>
+                      <h2 class="text-right"><i class="fas fa-user-graduate f-left"></i><span> 20 </span></h2>
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 custom-card"style="margin-right:35px;"> <!-- Adjusted column size and added custom class -->
+                <div class="card bg-c-green order-card">
+                    <div class="card-block">
+                      <h6 class="m-b-20"><a href="admin-view-teacher" style="text-decoration: none;color:white;">Total Teacher</a> </h6>
+                      <h2 class="text-right"><i class="fas fa-chalkboard-teacher f-left"></i><span> 4 </span></h2>
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 custom-card"style="margin-right:35px;"> <!-- Adjusted column size and added custom class -->
+                <div class="card bg-c-yellow order-card">
+                    <div class="card-block">
+                      <h6 class="m-b-20"><a href="admin-view-course" style="text-decoration: none;color:white;">Total Courses</a></h6>
+                     <h2 class="text-right"><i class="fas fa-book f-left"></i><span>1</span></h2>
+                      
+                    </div>
+                </div>
+              </div>
+              <div class="col-md-6 custom-card"style="margin-right:35px;"> <!-- Adjusted column size and added custom class -->
+                <div class="card bg-c-pink order-card">
+                    <div class="card-block">
+                      <h6 class="m-b-20"><a href="admin-view-question" style="text-decoration: none;color:white;">Total Questions</a></h6>
+                      <h2 class="text-right"><i class="fas fa-question-circle f-left"></i><span>10</span></h2>
+                      
+                </div>
+              </div>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br>
+
+
+<div id = "crudteacher" style="width: 70%;height: 80%;margin-bottom: 10%;margin-left: 20%;">
+  <%- include('CRUDteacher'); %>
+</div>
+
+
+<div id = "crud" style="width: 70%;height: 80%;margin-bottom: 10%;margin-left: 20%;">
+  <%- include('CRUDstd'); %>
+</div>
+
+
+
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+  <footer>
+
+    <br>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <div style="color:#ffffff;" class="wow fadeInUp footer-copyright">
+            <p style="text-align: center;">Examify<br>
+              Examify, Inc. &copy; 2024 | All Rights Reserved. </p><br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <!--content end-->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get the student link
+      var studentLink = document.getElementById('studentLink');
+      var admindash = document.getElementById('admindashboard');
+      var TeacherLink = document.getElementById('TeacherLink');
+
+
+
+      // Get the mainContent div
+      var mainContent = document.getElementById('mainContent');
+      
+      // Get the CRUD container
+      var crudContainer = document.getElementById('crud');
+      var crudteacher = document.getElementById('crudteacher');
+
+      if (crudContainer) {
+          crudContainer.style.display = 'none';
+        }
+
+        
+      if (crudteacher) {
+        crudteacher.style.display = 'none';
+        }
+
+        TeacherLink.addEventListener('click', function () {
+        // Hide the mainContent div
+        if (mainContent) {
+          mainContent.style.display = 'none';
+        }
+        if (crudteacher) {
+        crudteacher.style.display = 'block';
+        }
+        // Show the CRUD container
+        if (crudContainer) {
+          crudContainer.style.display = 'none';
+        }
+      });  
+      // Add click event listener to the student link
+      studentLink.addEventListener('click', function () {
+        // Hide the mainContent div
+        if (crudContainer) {
+          crudContainer.style.display = 'block';
+        }
+
+        if (mainContent) {
+          mainContent.style.display = 'none';
+        }
+        if (crudteacher) {
+        crudteacher.style.display = 'none';
+        }
+        // Show the CRUD container
+        
+      });
+
+
+      admindash.addEventListener('click', function () {
+        // Hide the mainContent div
+        if (mainContent) {
+          mainContent.style.display = 'block';
+        }
+        if (crudteacher) {
+        crudteacher.style.display = 'none';
+        }
+        // Show the CRUD container
+        if (crudContainer) {
+          crudContainer.style.display = 'none';
+        }
+      });
+    });
+  </script>
+    
+</body>
+
+</html>
